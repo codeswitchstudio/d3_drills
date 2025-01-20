@@ -1,0 +1,28 @@
+rect.straight {
+  fill: #ce678e;
+}
+
+rect.rounded {
+  fill: #c55b67;
+}
+
+rect.square {
+  stroke: #b600e3;
+  stroke-width: 5px;
+  fill: none;
+}
+
+line.first-line {
+  stroke-width: 3;
+  stroke: darkolivegreen;
+}
+
+circle {
+  fill: none;
+  stroke: #81c21c;
+  stroke-width: 3px;
+}
+
+ellipse {
+  fill: #81c21c;
+}
