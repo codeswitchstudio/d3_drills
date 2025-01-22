@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sol Le Witt Reproduction Vertical Variant</title>
+    <title>Sol LeWitt Reproduction</title>
     <style>
       body {
         margin: 0;
@@ -13,14 +11,13 @@
   </head>
   <body>
     <script>
-      const width = window.innerWidth; //window is optional sometimes
+      const width = window.innerWidth;
       const height = window.innerHeight;
 
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("width", width);
       svg.setAttribute("height", height);
       document.body.appendChild(svg);
-      // console.log(document.body);
 
       const mask = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -47,8 +44,6 @@
       circle.setAttribute("r", 200);
       circle.setAttribute("fill", "white");
       mask.appendChild(circle);
-
-      //second mask
 
       const mask2 = document.createElementNS(
         "http://www.w3.org/2000/svg",

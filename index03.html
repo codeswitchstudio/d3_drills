@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sol Le Witt Reproduction</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const width = window.innerWidth; //window is optional sometimes
+      const height = window.innerHeight;
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", width);
+      svg.setAttribute("height", height);
+      document.body.appendChild(svg);
+      console.log(document.body);
+
+      // const mask = document.createElementNS(
+      //   "http://www.w3.org/2000/svg",
+      //   "mask"
+      // );
+      // mask.setAttribute("id", "circle-mask");
+      // svg.appendChild(mask);
+
+      // const circle = document.createElementNS(
+      //   "http://www.w3.org/2000/svg",
+      //   "circle"
+      // );
+      // circle.setAttribute("cx", width / 2);
+      // circle.setAttribute("cy", height / 2);
+      // circle.setAttribute("r", 200);
+      // circle.setAttribute("fill", "white");
+
+      // mask.appendChild(circle);
+
+      const n = 100;
+      for (let i = 0; i < n; i++) {
+        const rect = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        rect.setAttribute("x", i * 20);
+        rect.setAttribute("width", 10);
+        rect.setAttribute("height", height);
+        rect.setAttribute("mask", "url(#circle-mask)");
+        svg.appendChild(rect);
+      }
+    </script>
+  </body>
+</html>
