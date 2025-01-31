@@ -41,15 +41,31 @@
       // mask.appendChild(circle);
 
       const n = 100;
+      // for (let i = 0; i < n; i++) {
+      //   const rect = document.createElementNS(
+      //     "http://www.w3.org/2000/svg",
+      //     "rect"
+      //   );
+      //   rect.setAttribute("x", i * 20);
+      //   rect.setAttribute("width", 10);
+      //   rect.setAttribute("height", height);
+      //   rect.setAttribute("mask", "url(#circle-mask)");
+      //   svg.appendChild(rect);
+      // }
+
       for (let i = 0; i < n; i++) {
         const rect = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "rect"
         );
+
+        // Set x and y values to create a diagonal
         rect.setAttribute("x", i * 20);
+        rect.setAttribute("y", i * 20); // This shifts the rectangles down, forming a diagonal
+
         rect.setAttribute("width", 10);
         rect.setAttribute("height", height);
-        rect.setAttribute("mask", "url(#circle-mask)");
+        rect.setAttribute("mask", "url(#circle-mask-2)");
         svg.appendChild(rect);
       }
     </script>
