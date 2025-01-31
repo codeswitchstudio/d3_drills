@@ -6,106 +6,45 @@
     <title>Document</title>
   </head>
   <body>
-    <svg width="1060" height="800">
-      <circle cx="50" cy="400" r="600" fill="yellow"></circle>
+    <div id="container"></div>
 
-      <circle cx="50" cy="400" r="50"></circle>
-      <circle cx="50" cy="400" r="20" fill="pink"></circle>
+    <script type="module">
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+      // var h1 = d3.select("body").append("h1").text("Behold, Sunshine!")
 
-      <rect
-        x="1"
-        y="1"
-        width="798"
-        height="398"
-        fill="none"
-        stroke="blue"
-        stroke-width="20"
-      />
-      <rect
-        x="400"
-        y="100"
-        width="400"
-        height="398"
-        fill="green"
-        stroke="blue"
-        stroke-width="20"
-      />
+      // Part1
+      // Creating Elements
 
-      <path
-        fill="pink"
-        d="M200 200 L300 300 l0 100"
-        stroke-width="10"
-        stroke="blue"
-      ></path>
-      <circle cx="150" cy="250" r="50" fill="red"></circle>
-      <circle cx="250" cy="150" r="20" fill="red"></circle>
-      <rect
-        x="10"
-        y="10"
-        width="30"
-        height="30"
-        stroke="black"
-        fill="transparent"
-        stroke-width="5"
-      />
-      <rect
-        x="60"
-        y="10"
-        rx="10"
-        ry="10"
-        width="30"
-        height="30"
-        stroke="black"
-        fill="transparent"
-        stroke-width="5"
-      />
+      // With raw JavaScript
+      let body = document.body
+      let h1 = document.createElement("h1")
+      let h1_text = document.createTextNode("Behold, sunshine!")
 
-      <circle
-        cx="25"
-        cy="75"
-        r="20"
-        stroke="red"
-        fill="transparent"
-        stroke-width="5"
-      />
-      <ellipse
-        cx="75"
-        cy="75"
-        rx="20"
-        ry="5"
-        stroke="red"
-        fill="transparent"
-        stroke-width="5"
-      />
+      h1.appendChild(h1_text)
+      body.appendChild(h1)
 
-      <line
-        x1="10"
-        x2="50"
-        y1="110"
-        y2="150"
-        stroke="orange"
-        stroke-width="5"
-      />
-      <polyline
-        points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145"
-        stroke="orange"
-        fill="transparent"
-        stroke-width="5"
-      />
+      // With D3
+      let paragraph = d3
+        .select("body")
+        .append("p")
+        .text("Be gone ye dismal, grey clouds")
 
-      <polygon
-        points="50 160 55 180 70 180 60 190 65 205 50 195 35 205 40 190 30 180 45 180"
-        stroke="green"
-        fill="transparent"
-        stroke-width="5"
-      />
+      // Part 2
+      // Styles vs attributes
 
-      <path
-        d="M20,230 Q40,205 50,230 T90,230"
-        fill="none"
-        stroke="blue"
-        stroke-width="5"
-      />
-    </svg>
+      // Setting an attribute
+      h1.setAttribute("class", "color fav_color")
+
+      // Setting a style
+      h1.style.color = "orange"
+
+      // With D3
+
+      // Setting an attribute
+      paragraph.attr("class", "color")
+
+      // Setting a style
+      paragraph.style("color", "gray")
+    </script>
   </body>
 </html>

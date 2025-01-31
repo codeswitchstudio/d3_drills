@@ -3,103 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sol Le Witt Reproduction Vertical Variant</title>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-      }
-    </style>
+    <title>Document</title>
   </head>
   <body>
-    <script>
-      const width = window.innerWidth; //window is optional sometimes
-      const height = window.innerHeight;
+    <div id="container"></div>
+    <!-- <script type="module">
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
 
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.setAttribute("width", width);
-      svg.setAttribute("height", height);
-      document.body.appendChild(svg);
-      // console.log(document.body);
+      // Declare the chart dimensions and margins.
+      const width = 640
+      const height = 400
+      const marginTop = 20
+      const marginRight = 20
+      const marginBottom = 30
+      const marginLeft = 40
 
-      const mask = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "mask"
-      );
-      mask.setAttribute("id", "circle-mask");
-      svg.appendChild(mask);
+      // Declare the x (horizontal position) scale.
+      const x = d3
+        .scaleUtc()
+        .domain([new Date("2024-01-01"), new Date("2025-01-01")])
+        .range([marginLeft, width - marginRight])
 
-      const maskRect = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "rect"
-      );
-      maskRect.setAttribute("width", width);
-      maskRect.setAttribute("height", height);
-      maskRect.setAttribute("fill", "black");
-      mask.appendChild(maskRect);
+      // Declare the y (vertical position) scale.
+      const y = d3
+        .scaleLinear()
+        .domain([0, 100])
+        .range([height - marginBottom, marginTop])
 
-      const circle = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
-      circle.setAttribute("cx", width / 2);
-      circle.setAttribute("cy", height / 2);
-      circle.setAttribute("r", 200);
-      circle.setAttribute("fill", "white");
-      mask.appendChild(circle);
+      // Create the SVG container.
+      const svg = d3.create("svg").attr("width", width).attr("height", height)
 
-      //second mask
+      // Add the x-axis.
+      svg
+        .append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(d3.axisBottom(x))
 
-      const mask2 = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "mask"
-      );
-      mask2.setAttribute("id", "circle-mask-2");
-      svg.appendChild(mask2);
+      // Add the y-axis.
+      svg
+        .append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(d3.axisLeft(y))
 
-      const maskRect2 = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "rect"
-      );
-      maskRect2.setAttribute("width", width);
-      maskRect2.setAttribute("height", height);
-      maskRect2.setAttribute("fill", "white");
-      mask2.appendChild(maskRect2);
+      // Append the SVG element.
+      container.append(svg.node())
+    </script> -->
 
-      const circle2 = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
-      circle2.setAttribute("cx", width / 2);
-      circle2.setAttribute("cy", height / 2);
-      circle2.setAttribute("r", 200);
-      circle2.setAttribute("fill", "black");
-      mask2.appendChild(circle2);
+    <script type="module">
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
 
-      const n = 100;
-      for (let i = 0; i < n; i++) {
-        const rect = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "rect"
-        );
-        rect.setAttribute("y", i * 20);
-        rect.setAttribute("width", width);
-        rect.setAttribute("height", 10);
-        rect.setAttribute("mask", "url(#circle-mask)");
-        svg.appendChild(rect);
-      }
-
-      for (let i = 0; i < n; i++) {
-        const rect = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "rect"
-        );
-        rect.setAttribute("x", i * 20);
-        rect.setAttribute("width", 10);
-        rect.setAttribute("height", height);
-        rect.setAttribute("mask", "url(#circle-mask-2)");
-        svg.appendChild(rect);
-      }
+      var h1 = d3.select("body").append("h1").text("Behold, Sunshine!")
     </script>
   </body>
 </html>

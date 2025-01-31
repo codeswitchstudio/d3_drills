@@ -1,5 +1,9 @@
-# d3_drills from the brilliant Curran Kelleher of VizHub
+# d3_drills
 
-A reproduction of a [Sol LeWitt art piece](https://www.edfu2.com/sol-lewitt-a-life-of-ideas-book-review-2/).
+## Get it Right in Black & White
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KPgGoR7GEKE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[from the brilliant Curran Kelleher of VizHub] (https://vizhub.com/forum/t/episode-1-svg-fundamentals/111)
+
+## Building Interactive Data Visualizations
+
+[Learning D3.js from Tea Time] (https://www.youtube.com/watch?v=86Lhih6Qagk)
