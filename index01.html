@@ -209,6 +209,13 @@
       .style("width", "30px")   
       .style("height", "30px")  
       .style("display", "inline-block")  
+      .style("text-align", "center")
+      .style("vertical-align", "middle")
+      .text(function(d) {
+        if (d == -5 || d == 0 || d == 5) {
+          return d;
+        }
+      })
 
 
 
