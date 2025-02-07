@@ -3,7 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Fave Flowers</title>
+
+    <style>
+      body {
+        font-size: 16px;
+        line-height: 1.5em;
+        color: #333333;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      }
+      div#content {
+        margin: auto;
+        width: 800px;
+      }
+      div#content > h1 {
+        margin: 20ps;
+        text-align: center;
+      }
+      div#content > div.flower > * {
+        margin: 0;
+      }
+      div#content > div.flower {
+        display: inline-block;
+        padding: 15px 20px;
+        margin: 10px;
+        vertical-align: top;
+      }
+      div#content > div.flower > img {
+        width: 200px;
+      }
+
+
+
+
+    </style>
+
+
+
   </head>
   <body>
     <div id="container"></div>
@@ -17,14 +53,14 @@
 
       // With raw JavaScript
       let body = document.body
-      let h1 = document.createElement("h1")
-      let h1_text = document.createTextNode("Behold, sunshine!")
+      let paragraph = document.createElement("paragraph")
+      let paragraph_text = document.createTextNode("Behold, sunshine!")
 
-      h1.appendChild(h1_text)
-      body.appendChild(h1)
+      paragraph.appendChild(paragraph_text)
+      body.appendChild(paragraph)
 
       // With D3
-      let paragraph = d3
+      let paragraph2 = d3
         .select("body")
         .append("p")
         .text("Be gone ye dismal, grey clouds")
@@ -33,18 +69,186 @@
       // Styles vs attributes
 
       // Setting an attribute
-      h1.setAttribute("class", "color fav_color")
+      paragraph.setAttribute("class", "color fav_color")
 
       // Setting a style
-      h1.style.color = "orange"
+      paragraph.style.color = "orange"
 
       // With D3
 
       // Setting an attribute
-      paragraph.attr("class", "color")
+      paragraph2.attr("class", "color")
 
       // Setting a style
-      paragraph.style("color", "gray")
+      paragraph2.style("color", "gray")
+
+      // Part 3
+      // Working with groups of elements
+
+      // With raw JS
+      var all_paragraphs = document.getElementsByTagName("p")
+
+      for (var i = 0; i < all_paragraphs.length; i++) {
+        all_paragraphs[i].style.fontSize = "50px;"
+      }
+
+      // With D3
+
+      var all_paragraphs2 = d3.selectAll("p").style("font-family", "sans-serif")
+
+      // Part 4
+      // Toggling Classes
+
+      // JS
+
+      let classes = paragraph.className
+      let classes_array = classes.split(" ")
+      let filtered_classes = classes_array.filter(function (c) {
+        return c != "fav_color"
+      })
+      paragraph.className = filtered_classes.join(" ")
+
+      // With D3
+      // paragraph_2.classed("fav_color", true);
+
+
+
+      //Flower Exercise Data
+
+      var flowers = [
+        {
+          name: "Hydrangia",
+          latin: "Hydrangea",
+          light: "Sun",
+          ease: 3,
+        },
+        {
+          name: "Chrysanthemum",
+          latin: "Chrysanthemum",
+          light: "Part Sun",
+          ease: 1,
+        },
+        {
+          name: "Peony",
+          latin: "Paeonia",
+          light: "Part Sun",
+          ease: -1,
+        },
+        {
+          name: "Orchid",
+          latin: "Orchidaceae",
+          light: "Shade",
+          ease: -5,
+        },
+        {
+          name: "Fern",
+          latin: "Drypoteris",
+          light: "Shade",
+          ease: 5,
+        },
+      ]
+
+
+      //Flowers Part 1
+      //Creating elements
+      //=============
+
+      //Linear Scale for color
+
+      const color = d3.scaleLinear()
+        .domain([-5, 0, 5])
+        .range(["red", "white", "green"]);
+
+
+      var div = d3
+        .select("div#content")
+        .selectAll("div")
+        .data(flowers)
+        .enter()
+        .append("div")
+        .attr("class", "flower")
+
+        div.append("h3").text(function(data, index) {
+          console.log(data, index);
+          return data.name;
+        });
+
+        div.append("p").append("i").text(function(d) {
+          return d.latin;
+        })
+        div.append("img").attr("src", function(d) {
+          return "img/"+d.name.toLowerCase() + ".jpg";
+        })
+
+        div.append("p").text(function(d) { 
+          return d.light
+        })
+        
+       div.style("background-color", function(d) {
+        return color(d.ease); 
+       })   
+               
+       
+       // Part 2
+       // Creating a Legend
+       // ============================
+
+       const legend_div = d3.select("div#content")
+        .append("div")
+        .attr("id", "legend");
+
+      legend_div.append("h2").text("Ease of Care Legend");
+
+      const span = d3.select("div#legend")
+       .selectAll("span")
+       .data(d3.range(-5, 6))
+       .enter().append("span");
+
+    span.style("background-color", function(d) {
+      return color(d);})
+      .style("width", "30px")   
+      .style("height", "30px")  
+      .style("display", "inline-block")  
+
+
+
+
+
+
+
     </script>
+    
+  <body>
+    <div id="content">
+      <h1>A bunch of flowers and a fern</h1>
+      <!-- <div class="flower">
+        <h2>Hydrangia</h2>
+        <p><i>Hydrangea</i></p>
+        <img src="img/pexels-photo-788193.webp" />
+      </div>  
+      <div class="flower">
+        <h2>Chrysanthemum</h2>
+        <p><i>Chrysanthemum</i></p>
+        <img src="img/pexels-gourab-nill-2148966842-30431130.jpg" />
+      </div>       
+      <div class="flower">
+        <h2>Peony</h2>
+        <p><i>Paeonia</i></p>
+        <img src="img/pexels-brenda-timmermans-11680-58899.jpg" />
+      </div> 
+      <div class="flower">
+        <h2>Orchid</h2>
+        <p><i>Orchidaceae</i></p>
+        <img src="img/pexels-pixabay-40744.jpg" />
+      </div> 
+      <div class="flower">
+        <h2>Fern</h2>
+        <p><i>Drypoteris</i></p>
+        <img src="img/pexels-didsss-2923277.jpg" />
+      </div>        -->
+    </div>
   </body>
+
+
+
 </html>
