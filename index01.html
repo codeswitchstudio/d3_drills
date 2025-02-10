@@ -48,70 +48,6 @@
       import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
       // var h1 = d3.select("body").append("h1").text("Behold, Sunshine!")
 
-      // Part1
-      // Creating Elements
-
-      // With raw JavaScript
-      let body = document.body
-      let paragraph = document.createElement("paragraph")
-      let paragraph_text = document.createTextNode("Behold, sunshine!")
-
-      paragraph.appendChild(paragraph_text)
-      body.appendChild(paragraph)
-
-      // With D3
-      let paragraph2 = d3
-        .select("body")
-        .append("p")
-        .text("Be gone ye dismal, grey clouds")
-
-      // Part 2
-      // Styles vs attributes
-
-      // Setting an attribute
-      paragraph.setAttribute("class", "color fav_color")
-
-      // Setting a style
-      paragraph.style.color = "orange"
-
-      // With D3
-
-      // Setting an attribute
-      paragraph2.attr("class", "color")
-
-      // Setting a style
-      paragraph2.style("color", "gray")
-
-      // Part 3
-      // Working with groups of elements
-
-      // With raw JS
-      var all_paragraphs = document.getElementsByTagName("p")
-
-      for (var i = 0; i < all_paragraphs.length; i++) {
-        all_paragraphs[i].style.fontSize = "50px;"
-      }
-
-      // With D3
-
-      var all_paragraphs2 = d3.selectAll("p").style("font-family", "sans-serif")
-
-      // Part 4
-      // Toggling Classes
-
-      // JS
-
-      let classes = paragraph.className
-      let classes_array = classes.split(" ")
-      let filtered_classes = classes_array.filter(function (c) {
-        return c != "fav_color"
-      })
-      paragraph.className = filtered_classes.join(" ")
-
-      // With D3
-      // paragraph_2.classed("fav_color", true);
-
-
 
       //Flower Exercise Data
 
@@ -218,6 +154,71 @@
       })
 
 
+
+
+      // Part A
+      // Creating Elements
+
+      // With raw JavaScript
+      let body = document.body
+      let paragraph = document.createElement("paragraph")
+      let paragraph_text = document.createTextNode("Behold, sunshine!")
+
+      paragraph.appendChild(paragraph_text)
+      body.appendChild(paragraph)
+
+      // With D3
+      let paragraph2 = d3
+        .select("body")
+        .append("p")
+        .text("Be gone ye dismal, grey clouds")
+
+      // Part B
+      // Styles vs attributes
+
+      // Setting an attribute
+      paragraph.setAttribute("class", "color fav_color")
+
+      // Setting a style
+      paragraph.style.color = "orange"
+     
+      
+      // With D3
+
+      // Setting an attribute
+      paragraph2.attr("class", "color")
+
+      // Setting a style
+      paragraph2.style("color", "gray")
+
+      // Part C
+      // Working with groups of elements
+
+      // With raw JS
+      var all_paragraphs = document.getElementsByTagName("p")
+
+      for (var i = 0; i < all_paragraphs.length; i++) {
+        all_paragraphs[i].style.fontSize = "50px;"
+      }
+
+      // With D3
+
+      var all_paragraphs2 = d3.selectAll("p").style("font-family", "sans-serif")
+
+      // Part D
+      // Toggling Classes
+
+      // JS
+
+      let classes = paragraph.className
+      let classes_array = classes.split(" ")
+      let filtered_classes = classes_array.filter(function (c) {
+        return c != "fav_color"
+      })
+      paragraph.className = filtered_classes.join(" ")
+
+      // With D3
+      // paragraph_2.classed("fav_color", true);
 
 
 

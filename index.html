@@ -3,56 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SVG with Raw Javascript</title>
   </head>
+
   <body>
-    <div id="container"></div>
-    <!-- <script type="module">
-      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+    <div id="content">
+      <h2>SVG with Raw Javascript</h2>
+    </div>
 
-      // Declare the chart dimensions and margins.
-      const width = 640
-      const height = 400
-      const marginTop = 20
-      const marginRight = 20
-      const marginBottom = 30
-      const marginLeft = 40
+    <script>
+      const xmlns = "http://www.w3.org/2000/svg"
+      const stage_w = 100
+      const stage_h = 100
 
-      // Declare the x (horizontal position) scale.
-      const x = d3
-        .scaleUtc()
-        .domain([new Date("2024-01-01"), new Date("2025-01-01")])
-        .range([marginLeft, width - marginRight])
+      // Create SVG container element in the SVG name space
+      const stage = document.createElementNS(xmlns, "svg")
 
-      // Declare the y (vertical position) scale.
-      const y = d3
-        .scaleLinear()
-        .domain([0, 100])
-        .range([height - marginBottom, marginTop])
+      // Container size
 
-      // Create the SVG container.
-      const svg = d3.create("svg").attr("width", width).attr("height", height)
+      stage.setAttributeNS(null, "viewBox", "0 0 " + stage_w + " " + stage_h) // NameSpace
+      stage.setAttributeNS(null, "width", stage_w)
+      stage.setAttributeNS(null, "height", stage_h)
 
-      // Add the x-axis.
-      svg
-        .append("g")
-        .attr("transform", `translate(0,${height - marginBottom})`)
-        .call(d3.axisBottom(x))
+      // Add the SVG to the page
 
-      // Add the y-axis.
-      svg
-        .append("g")
-        .attr("transform", `translate(${marginLeft},0)`)
-        .call(d3.axisLeft(y))
+      document.body.appendChild(stage)
 
-      // Append the SVG element.
-      container.append(svg.node())
-    </script> -->
+      // Create a rectangle element in SVG namespace
+      var circle = document.createElementNS(xmlns, "circle")
+
+      // Set the X, Y position, width, height, fill
+      circle.setAttributeNS(null, "cx", "20")
+      circle.setAttributeNS(null, "cy", "40")
+      circle.setAttributeNS(null, "r", "20")
+      // rect.setAttributeNS(null, "height", "40")
+      circle.setAttributeNS(null, "fill", "yellow")
+
+      // Add rectangle to stage
+      stage.appendChild(circle)
+    </script>
+    <div id="content">
+      <h2>SVG with d3</h2>
+    </div>
 
     <script type="module">
       import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+      // svg with d3
 
-      var h1 = d3.select("body").append("h1").text("Behold, Sunshine!")
+      const new_stage = d3.select("body").append("svg")
+
+      new_stage
+        .attr("viewBox", "0, 0 " + stage_w + " " + stage_h)
+        .attr("width", stage_w)
+        .attr("height", stage_h)
+
+      const new_rect = new_stage.append("rect")
+
+      new_rect
+        .attr("height", 40)
+        .attr("width", 80)
+        .attr("x", 0)
+        .attr("y", 20)
+        .attr("fill", "pink")
+
+      stage_w = stage_w * 5
+      const my_data = [1, 2, 3, 4, 5, 6]
+
+      const another_stage = d3.select("body").append("svg")
+
+      another_stage
+        .attr("viewBox", "0, 0 " + stage_w + " " + stage_h)
+        .attr("width", stage_w)
+        .attr("height", stage_h)
+
+      const squares = another_stage
+        .selectAll("rect")
+        .data(my_data)
+        .enter()
+        .append("rect")
+
+      squares
+        .attr("fill", "maroon")
+        .attr("x", function (d) {
+          return Math.pow(2, d) * 5
+        })
+        .attr("y", stage_h / 2)
+        .attr("height", function (d) {
+          return Math.pow(2, d)
+        })
+        .attr("width", function (d) {
+          return Math.pow(2, d)
+        })
     </script>
   </body>
 </html>
