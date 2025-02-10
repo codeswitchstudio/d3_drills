@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fave Flowers</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script> -->
+  </head>
+  <body>
+    <div id="content">
+      <h1>Fern among the Flowers</h1>
+    </div>
+    <script type="module">
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+
+      const width = 500
+      const height = 300
+
+      // Fetch data from flowers.json
+      fetch("flowers.json")
+        .then((response) => response.json())
+        .then((flowers) => {
+          // Add a random "value" property to each flower
+          flowers = flowers.map((flower) => ({
+            ...flower,
+            value: Math.floor(Math.random() * 100) + 1,
+          }))
+
+          // Create an SVG container
+          const svg = d3
+            .select("#content")
+            .append("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("width", width)
+            .attr("height", height)
+
+          // Bind data and create rectangles
+          const rects = svg
+            .selectAll("rect")
+            .data(flowers)
+            .enter()
+            .append("rect")
+
+          rects
+            .attr("x", (d, i) => i * 30) // Spacing out bars
+            .attr("y", (d) => height - d.value)
+            .attr("width", 20)
+            .attr("height", (d) => d.value)
+            .attr("fill", "teal") // Color for visualization
+        })
+        .catch((error) => console.error("Error loading JSON:", error))
+    </script>
+  </body>
+</html>
