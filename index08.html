@@ -8,75 +8,83 @@
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif;
+        padding: 10px;
       }
     </style>
   </head>
   <body>
     <div id="content">
       <h1>Dynamic Barchart</h1>
-      <p>random numerical values assigned to each object in data set</p>
+      <p>
+        random numerical values assigned to each object in data set. refresh to
+        get a new chart
+      </p>
     </div>
     <script type="module">
       import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
 
       var width = window.innerWidth
       var height = window.innerHeight
+      var color =
+        // Fetch data from flowers.json
+        fetch("flowers.json")
+          .then((response) => response.json())
+          .then((flowers) => {
+            console.log(flowers.length)
+            // Add a random "value" property to each flower
+            flowers = flowers.map((flower) => ({
+              ...flower,
+              value: Math.floor(Math.random() * 100) + 1,
+            }))
 
-      // Fetch data from flowers.json
-      fetch("flowers.json")
-        .then((response) => response.json())
-        .then((flowers) => {
-          console.log(flowers.length)
-          // Add a random "value" property to each flower
-          flowers = flowers.map((flower) => ({
-            ...flower,
-            value: Math.floor(Math.random() * 100) + 1,
-          }))
+            var bar_width = width / flowers.length
 
-          var bar_width = width / flowers.length
+            var flower_domain = d3.extent(flowers, function (d) {
+              return d.value
+            })
 
-          var flower_domain = d3.extent(flowers, function (d) {
-            return d.value
+            // Test our range
+            console.log("oi!")
+            console.log(flower_domain)
+
+            var bar_height = d3
+              .scaleLinear()
+              .domain(flower_domain)
+              .range([0, height])
+
+            // Create an SVG container
+            var svg = d3
+              .select("#content")
+              .append("svg")
+              .attr("viewBox", `0 0 ${width} ${height}`)
+              .attr("width", width)
+              .attr("height", height)
+
+            // Bind data and create rectangles
+            var rects = svg
+              .selectAll("rect")
+              .data(flowers)
+              .enter()
+              .append("rect")
+
+            rects
+              // .attr("x", function(d, 1){
+              // 	 return i * bar_width;
+              //		})
+              // .attr("y", function(d) {
+              //  	return height - bar_height(d["value"]);
+              //   })
+              // .attr("width", bar_width)
+              // .attr("height", function(d) {
+              //    return bar_height(d["value"]); });
+
+              .attr("x", (d, i) => i * bar_width) // Spacing out bars
+              .attr("y", (d) => height - bar_height(d.value))
+              .attr("width", bar_width)
+              .attr("height", (d) => bar_height(d.value))
+              .attr("fill", "lightblue") // Color for visualization
           })
-
-          // Test our range
-          console.log("oi!")
-          console.log(flower_domain)
-
-          var bar_height = d3
-            .scaleLinear()
-            .domain(flower_domain)
-            .range([0, height])
-
-          // Create an SVG container
-          var svg = d3
-            .select("#content")
-            .append("svg")
-            .attr("viewBox", `0 0 ${width} ${height}`)
-            .attr("width", width)
-            .attr("height", height)
-
-          // Bind data and create rectangles
-          var rects = svg.selectAll("rect").data(flowers).enter().append("rect")
-
-          rects
-            // .attr("x", function(d, 1){
-            // 	 return i * bar_width;
-            //		})
-            // .attr("y", function(d) {
-            //  	return height - bar_height(d["value"]);
-            //   })
-            // .attr("width", bar_width)
-            // .attr("height", function(d) {
-            //    return bar_height(d["value"]); });
-
-            .attr("x", (d, i) => i * bar_width) // Spacing out bars
-            .attr("y", (d) => height - bar_height(d.value))
-            .attr("width", bar_width)
-            .attr("height", (d) => bar_height(d.value))
-            .attr("fill", "green") // Color for visualization
-        })
-        .catch((error) => console.error("Error loading JSON:", error))
+          .catch((error) => console.error("Error loading JSON:", error))
     </script>
   </body>
 </html>
